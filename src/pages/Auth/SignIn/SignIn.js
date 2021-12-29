@@ -7,14 +7,19 @@ import Button from '../../../components/Button/';
 
 const SignIn = props => {
   const navigation = useNavigation();
-  return ( 
+
+  const handleGoSignUp = () => {
+    navigation.navigate('SignUp');
+  };
+
+  return (
     <View style={styles.container}>
-      <Text>SignIn</Text>
-      <Input placeholder="E-Mail" iconName='email'/>
-      <Input placeholder="Password" iconName='lock'/>
-      <Button title='Sign In'/>
-      <Button title='Sign Up' variant='outline'/>
+      <Input placeholder="E-Mail" iconName="email" />
+      <Input placeholder="Password" iconName="lock" />
+      <Button title="Sign In" />
+      <Button title="Sign Up" variant="outline" onPress={handleGoSignUp} />
     </View>
   );
 };
+
 export default SignIn;

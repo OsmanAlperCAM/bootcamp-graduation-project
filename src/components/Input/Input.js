@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
-import {useSelector} from 'react-redux';
+import {View, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './Input.style';
 import iconSize from '../../styles/iconSize';
