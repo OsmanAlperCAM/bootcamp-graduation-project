@@ -13,7 +13,12 @@ const Input = ({iconName, ...otherProps}) => {
         placeholderTextColor={colors.PlaceHolderTextColor}
         {...otherProps}
       />
-      <Icon name={iconName} size={iconSize.small} color={colors.secondaryColor} />
+      <Icon
+        name={iconName}
+        size={iconSize.small}
+        color={colors.secondaryColor}
+      />
+      
     </View>
   );
 };
