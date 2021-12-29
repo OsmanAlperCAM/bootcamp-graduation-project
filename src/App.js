@@ -1,7 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
+import Provider from './context/Provider';
 
 const App = props => {
-  return <Navigation />;
+  return (
+    <Provider>
+      <Navigation />
+    </Provider>
+  );
 };
 export default App;

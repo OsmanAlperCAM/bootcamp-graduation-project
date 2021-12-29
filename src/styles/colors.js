@@ -1,14 +1,16 @@
 export default {
   light: {
-    primaryColor: '#fafafa',
+    primaryColor: '#e0e0e0',
     primaryColorLight: '#ffffff',
-    primaryColorDark: '#c7c7c7',
+    primaryColorDark: '#aeaeae',
     primaryTextColor: '#000000',
+    PlaceHolderTextColor: '#616161',
   },
   dark: {
     primaryColor: '#37474f',
     primaryColorLight: '#62727b',
     primaryColorDark: '#102027',
     primaryTextColor: '#ffffff',
+    PlaceHolderTextColor: '#bdbdbd',
   },
 };
