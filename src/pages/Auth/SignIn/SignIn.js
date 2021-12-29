@@ -1,6 +1,7 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Button} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './SignIn.style';
 
 const SignIn = props => {
@@ -8,7 +9,7 @@ const SignIn = props => {
   return (
     <View style={styles.container}>
       <Text>SignIn</Text>
-      <Button title="Go SignUp" onPress={()=> navigation.navigate('SignUp')} />
+      <Button title="Go SignUp" onPress={() => navigation.navigate('SignUp')} />
     </View>
   );
 };
