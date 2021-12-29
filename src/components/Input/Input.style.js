@@ -3,7 +3,7 @@ import spacing from '../../styles/spacing';
 import colors from '../../styles/colors';
 import radius from '../../styles/radius';
 
-const baseStyles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -12,35 +12,11 @@ const baseStyles = StyleSheet.create({
     marginHorizontal: spacing.large,
     borderWidth: 1,
     borderRadius: radius.soft,
+    backgroundColor: colors.primaryColor,
+    borderColor: colors.primaryColorDark,
   },
   input: {
-    flex: 1, 
+    flex: 1,
+    color: colors.primaryTextColor,
   },
 });
-export default {
-  light: StyleSheet.create({
-    ...baseStyles,
-    container: {
-      ...baseStyles.container,
-      backgroundColor: colors.light.primaryColor,
-      borderColor: colors.light.primaryColorDark,
-    },
-    input:{
-      ...baseStyles.input,
-      color:colors.light.primaryTextColor
-    },
-  }),
-  dark: StyleSheet.create({
-    ...baseStyles,
-    container: {
-      ...baseStyles.container,
-      backgroundColor: colors.dark.primaryColorLight,
-      borderColor: colors.light.primaryColorLight,
-    },
-    input:{
-      ...baseStyles.input,
-      color:colors.dark.primaryTextColor
-      
-    },
-  }),
-};

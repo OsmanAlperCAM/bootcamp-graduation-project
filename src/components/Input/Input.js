@@ -7,20 +7,14 @@ import iconSize from '../../styles/iconSize';
 import colors from '../../styles/colors';
 
 const Input = ({iconName, ...otherProps}) => {
-  const theme = useSelector(state => state.theme);
-  const placeHolderColor =
-    theme === 'light'
-      ? colors[theme].placeholderTextColor
-      : colors[theme].placeholderTextColor;
-
   return (
-    <View style={styles[theme].container}>
+    <View style={styles.container}>
       <TextInput
-        style={styles[theme].input}
-        placeholderTextColor={placeHolderColor}
+        style={styles.input}
+        placeholderTextColor={colors.PlaceHolderTextColor}
         {...otherProps}
       />
-      <Icon name={iconName} size={iconSize.small} color={placeHolderColor} />
+      <Icon name={iconName} size={iconSize.small} color={colors.secondaryColor} />
     </View>
   );
 };

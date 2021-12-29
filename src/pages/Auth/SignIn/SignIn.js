@@ -1,18 +1,19 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styles from './SignIn.style';
 import Input from '../../../components/Input';
-import {useSelector} from 'react-redux';
+import Button from '../../../components/Button/';
 
 const SignIn = props => {
   const navigation = useNavigation();
-  return (
+  return ( 
     <View style={styles.container}>
       <Text>SignIn</Text>
       <Input placeholder="E-Mail" iconName='email'/>
       <Input placeholder="Password" iconName='lock'/>
-      <Button title="Go SignUp" onPress={() => navigation.navigate('SignUp')} />
+      <Button title='Sign In'/>
+      <Button title='Sign Up' variant='outline'/>
     </View>
   );
 };
