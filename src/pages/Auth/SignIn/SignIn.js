@@ -8,20 +8,22 @@ import styles from './SignIn.style';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button/';
 import routes from '../../../Navigation/routes';
+import {useDispatch} from 'react-redux';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string().trim().required('Required'),
 });
 
-const handleLogin = async (email, password) => {
-  const response = await auth().signInWithEmailAndPassword(email, password);
-  console.log('signIn', response.user.metadata);
-};
-
 const SignIn = props => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
+  const handleLogin = async (email, password) => {
+    const response = await auth().signInWithEmailAndPassword(email, password);
+    dispatch({type: 'USER_SESSION', payload: {session: response}});
+    console.log('signIn', response);
+  };
   const handleGoSignUp = () => {
     navigation.navigate(routes.SIGN_UP_PAGE);
   };
@@ -43,6 +45,7 @@ const SignIn = props => {
             placeholder="E-Mail"
             iconName="email"
             label="E-Mail"
+            keyboardType="email-address"
             error={touched.email && errors.email}
             onBlur={handleBlur('email')}
             value={values.email}

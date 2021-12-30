@@ -5,24 +5,27 @@ import auth from '@react-native-firebase/auth';
 import routes from './routes';
 import AuthStack from './AuthStack/';
 import DashboardStack from './DashboardStack';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   const [hasSession, setHasSession] = useState(null);
+  const isNewUser = useSelector(state => state.session);
+  console.log('isNewUser', !!isNewUser?.additionalUserInfo.isNewUser);
 
   useEffect(() => {
     const subscribe = auth().onAuthStateChanged(setHasSession);
     return subscribe;
   }, []);
   useEffect(() => {
-    console.log('hasSession',hasSession);
+    console.log('hasSession', hasSession);
   }, [hasSession]);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!!hasSession ? (
+        {!!hasSession && !!isNewUser?.additionalUserInfo.isNewUser == false ? (
           <Stack.Screen
             name={routes.DASHBOARD_STACK}
             component={DashboardStack}
