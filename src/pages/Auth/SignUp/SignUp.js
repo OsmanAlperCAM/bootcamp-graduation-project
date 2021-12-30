@@ -23,7 +23,7 @@ const SignUpSchema = Yup.object().shape({
   confirmPassword: Yup.string().equals(
     [Yup.ref('password'), null],
     'Password Does Not Match',
-  ),
+  ).required('Required'),
 });
 
 const SignUp = props => {

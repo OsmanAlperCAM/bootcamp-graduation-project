@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './SignIn.style';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button/';
+import routes from '../../../Navigation/routes';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -16,7 +17,7 @@ const SignIn = props => {
   const navigation = useNavigation();
 
   const handleGoSignUp = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate(routes.SIGN_UP_PAGE);
   };
   const handleFormSubmit = values => {
     console.log(values);
