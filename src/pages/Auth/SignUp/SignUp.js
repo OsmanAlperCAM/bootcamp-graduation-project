@@ -2,34 +2,42 @@ import React from 'react';
 import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import auth from '@react-native-firebase/auth';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import styles from './SignUp.style';
 
+
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, 'Too Short!')
-    .max(10, 'Too Long!')
-    .required('Required'),
+  .min(2, 'Too Short!')
+  .max(10, 'Too Long!')
+  .required('Required'),
   surname: Yup.string()
-    .min(2, 'Too Short!')
-    .max(10, 'Too Long!')
-    .required('Required'),
+  .min(2, 'Too Short!')
+  .max(10, 'Too Long!')
+  .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
-    .trim()
-    .min(6, 'The password should be 6 characters at least')
-    .required('Required'),
-  confirmPassword: Yup.string().equals(
-    [Yup.ref('password'), null],
-    'Password Does Not Match',
-  ).required('Required'),
+  .trim()
+  .min(6, 'The password should be 6 characters at least')
+  .required('Required'),
+  confirmPassword: Yup.string()
+  .equals([Yup.ref('password'), null], 'Password Does Not Match')
+  .required('Required'),
 });
 
 const SignUp = props => {
-  const handleFormSubmit = values => {
-    console.log(values);
+  
+  const handleSignUp = async (email, password) => {
+    const response = await auth().createUserWithEmailAndPassword(email, password);
+    console.log('signUp', response);
   };
+
+  const handleFormSubmit = values => {
+    handleSignUp(values.email, values.password);
+  };
+
   return (
     <Formik
       initialValues={{

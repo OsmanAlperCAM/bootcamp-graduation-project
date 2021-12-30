@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useNavigation} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
 import styles from './SignIn.style';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button/';
@@ -13,6 +14,11 @@ const SignInSchema = Yup.object().shape({
   password: Yup.string().trim().required('Required'),
 });
 
+const handleLogin = async (email, password) => {
+  const response = await auth().signInWithEmailAndPassword(email, password);
+  console.log('signIn', response.user.metadata);
+};
+
 const SignIn = props => {
   const navigation = useNavigation();
 
@@ -20,7 +26,7 @@ const SignIn = props => {
     navigation.navigate(routes.SIGN_UP_PAGE);
   };
   const handleFormSubmit = values => {
-    console.log(values);
+    handleLogin(values.email, values.password);
   };
 
   return (
