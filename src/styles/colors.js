@@ -5,10 +5,11 @@ export default {
   primaryTextColor: '#000000',
   primaryBackgroundColor: '#f5f5f5',
   PlaceHolderTextColor: '#616161',
-  
+
   secondaryColor: '#33691e',
   secondaryColorDark: '#003d00',
   secondaryColorLight: '#629749',
   secondaryTextColor: '#ffffff',
-  secondaryBackgroundColor: '#cfd8dc'
+  secondaryBackgroundColor: '#cfd8dc',
+  errorText: '#d32f2f',
 };
