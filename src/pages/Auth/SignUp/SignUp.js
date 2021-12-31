@@ -2,12 +2,13 @@ import React from 'react';
 import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import styles from './SignUp.style';
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,17 +33,21 @@ const SignUp = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const handleSignUp = async (email, password) => {
+  const handleSignUp = async (email, password, name, surname) => {
     const response = await auth().createUserWithEmailAndPassword(
       email,
       password,
     );
+    await database().ref(`${response.user.uid}/profile`).set({
+      name,
+      surname,
+    });
     dispatch({type: 'USER_SESSION', payload: {session: response}});
     console.log('signUp', response);
   };
 
   const handleFormSubmit = values => {
-    handleSignUp(values.email, values.password);
+    handleSignUp(values.email, values.password, values.name, values.surname);
     navigation.goBack();
   };
 
