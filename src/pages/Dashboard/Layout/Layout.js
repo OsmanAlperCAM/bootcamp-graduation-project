@@ -7,7 +7,7 @@ import StatusCard from '../../../components/Cards/StatusCards';
 const Layout = ({onLogOut, position}) => {
   return (
     <View style={styles.container}>
-      <StatusCard distance="0 Km" time="0 HR" number="0" />
+      <StatusCard distance="0 Km" time="0 HR" number="0" variant="secondary" />
       <MapView
         style={styles.map}
         provider={PROVIDER_GOOGLE}

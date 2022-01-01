@@ -3,14 +3,14 @@ import {View, Text} from 'react-native';
 import InfoCard from '../InfoCard';
 import styles from './StatusCard.style';
 
-const StatusCard = ({distance, time, number}) => {
+const StatusCard = ({distance, time, number, variant = 'default'}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Name</Text>
-      <View style={styles.status_container}>
-        <InfoCard title="Total Distance" text={distance} />
-        <InfoCard title="Total Time" text={time} />
-        <InfoCard title="Total Activity" text={number} />
+    <View style={styles[variant].container}>
+      <Text style={styles[variant].title}>Name</Text>
+      <View style={styles[variant].status_container}>
+        <InfoCard title="Total Distance" text={distance} variant={variant} />
+        <InfoCard title="Total Time" text={time} variant={variant} />
+        <InfoCard title="Total Activity" text={number} variant={variant} />
       </View>
     </View>
   );

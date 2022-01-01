@@ -3,19 +3,43 @@ import colors from '../../../styles/colors';
 import fontSize from '../../../styles/fontSize';
 import spacing from '../../../styles/spacing';
 
-export default StyleSheet.create({
+const baseStyles = StyleSheet.create({
   container: {
     padding: spacing.tiny,
     margin: spacing.tiny,
-    alignItems:'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: fontSize.normal,
-    color: colors.primaryTextColor,
-},
-text: {
+  },
+  text: {
     fontSize: fontSize.large,
     fontWeight: 'bold',
     color: colors.primaryTextColor,
   },
 });
+
+export default {
+  default: StyleSheet.create({
+    ...baseStyles,
+    title: {
+      ...baseStyles.title,
+      color: colors.primaryTextColor,
+    },
+    text: {
+      ...baseStyles.text,
+      color: colors.primaryTextColor,
+    },
+  }),
+  secondary: StyleSheet.create({
+    ...baseStyles,
+    title: {
+      ...baseStyles.title,
+      color: colors.secondaryTextColor,
+    },
+    text: {
+      ...baseStyles.text,
+      color: colors.secondaryTextColor,
+    },
+  }),
+};
