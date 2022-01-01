@@ -1,12 +1,16 @@
 import React from 'react';
 import {View, Text, Button} from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import styles from './Layout.style';
 
-const Layout = ({onLogOut}) => {
+const Layout = ({onLogOut, position}) => {
   return (
     <View style={styles.container}>
-      <MapView style={styles.map}></MapView>
+      <MapView
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={position}
+        showsUserLocation={true}></MapView>
       <Text>Layout</Text>
       <Button title="Log Out" onPress={onLogOut} />
     </View>
