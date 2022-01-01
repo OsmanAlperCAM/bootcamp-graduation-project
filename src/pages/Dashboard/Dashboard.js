@@ -6,8 +6,10 @@ import Layout from './Layout';
 import Geolocation from '@react-native-community/geolocation';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import routes from '../../Navigation/routes';
 
 const Dashboard = props => {
+  const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
   const [position, setPosition] = useState({
     latitude: 0,
@@ -39,11 +41,20 @@ const Dashboard = props => {
   const handleLogOut = async () => {
     await auth().signOut();
   };
+  const handleGoAdd = () => {
+    navigation.navigate(routes.NEW_ACTIVITY_PAGE);
+    console.log('add Press');
+  };
   if (userData == null) {
     return null;
   }
   return (
-    <Layout onLogOut={handleLogOut} position={position} userData={userData} />
+    <Layout
+      onLogOut={handleLogOut}
+      position={position}
+      userData={userData}
+      onAddPress={handleGoAdd}
+    />
   );
 };
 export default Dashboard;

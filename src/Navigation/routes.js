@@ -4,4 +4,5 @@ export default {
   SIGN_UP_PAGE: 'SignUpPage',
   DASHBOARD_STACK: 'DashboardStack',
   DASHBOARD_PAGE: 'DashboardPage',
+  NEW_ACTIVITY_PAGE: 'ActivityPage',
 };
