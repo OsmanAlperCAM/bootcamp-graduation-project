@@ -4,10 +4,16 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import styles from './Layout.style';
 import StatusCard from '../../../components/Cards/StatusCards';
 
-const Layout = ({onLogOut, position}) => {
+const Layout = ({onLogOut, position, userData}) => {
   return (
     <View style={styles.container}>
-      <StatusCard distance="0 Km" time="0 HR" number="0" variant="secondary" />
+      <StatusCard
+        title={`${userData.profile.name} ${userData.profile.surname}`}
+        distance={`${userData.activity.total.distance} KM`}
+        time={`${userData.activity.total.time} HR`}
+        number={userData.activity.total.number}
+        variant="secondary"
+      />
       <MapView
         style={styles.map}
         provider={PROVIDER_GOOGLE}

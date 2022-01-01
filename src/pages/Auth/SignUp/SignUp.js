@@ -43,9 +43,9 @@ const SignUp = props => {
       surname,
     });
     await database().ref(`${response.user.uid}/activity/total`).set({
-      totalDistance: 0,
-      totalTime: 0,
-      numberOfActivities: 0,
+      distance: 0,
+      time: 0,
+      number: 0,
     });
     dispatch({type: 'USER_SESSION', payload: {session: response}});
     console.log('signUp', response);
