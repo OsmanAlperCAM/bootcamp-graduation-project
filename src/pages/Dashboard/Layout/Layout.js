@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Button} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import styles from './Layout.style';
+import FloatingActionButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCards';
 
 const Layout = ({onLogOut, position, userData}) => {
@@ -19,7 +20,12 @@ const Layout = ({onLogOut, position, userData}) => {
         provider={PROVIDER_GOOGLE}
         initialRegion={position}
         showsUserLocation={true}></MapView>
-      <Button title="Log Out" onPress={onLogOut} />
+      <View style={styles.buttons_container}>
+      <FloatingActionButton iconName='leaderboard' />
+      <FloatingActionButton iconName='add' size='big'/>
+      <FloatingActionButton iconName='history'/>
+      </View>
+        {/* <Button title="Log Out" onPress={onLogOut} /> */}
     </View>
   );
 };
