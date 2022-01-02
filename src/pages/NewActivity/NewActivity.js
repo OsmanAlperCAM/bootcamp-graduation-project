@@ -2,10 +2,26 @@ import React, {useEffect, useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import {useClock} from 'react-native-timer-hooks';
 import Layout from './Layout';
+import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
+
+const distanceCalculate = array => {
+  let distance = 0;
+  for (let i = 1; i < array.length; i++) {
+    console.log('i', i);
+    distance = HaversineAlgorithm(
+      array[i - 1].latitude,
+      array[i - 1].longitude,
+      array[i].latitude,
+      array[i].longitude,
+    );
+  }
+  return distance;
+};
 
 const NewActivity = props => {
+  const [distance, setDistance] = useState(0);
   const [routes, setRoutes] = useState([]);
-  const [speed,setSpeed] = useState(0);
+  const [speed, setSpeed] = useState(0);
   const [position, setPosition] = useState({
     latitude: 0,
     longitude: 0,
@@ -17,11 +33,18 @@ const NewActivity = props => {
     useClock(0, 1000, false);
 
   useEffect(() => {
-    if (counter % 5 == 0) {
+    console.log('distance', distance);
+  }, [distance]);
+  useEffect(() => {
+    console.log('5 dis', distanceCalculate(routes));
+   setDistance(distance +distanceCalculate(routes))
+  }, [routes]);
+
+  useEffect(() => {
+    if (counter % 5 == 0 && counter !=0) {
       Geolocation.getCurrentPosition(
         location => {
-          console.log(location)
-          setSpeed(location.coords.speed)
+          setSpeed(location.coords.speed);
           setRoutes([
             ...routes,
             {
@@ -35,7 +58,6 @@ const NewActivity = props => {
       );
     }
   }, [counter]);
-
 
   const handlePlayPausePress = () => {
     if (isRunningTimer) {
@@ -72,6 +94,7 @@ const NewActivity = props => {
       counter={counter}
       routes={routes}
       speed={speed}
+      distance={distance}
     />
   );
 };

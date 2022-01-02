@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import MapView, {PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
@@ -15,6 +15,7 @@ const Layout = ({
   isRunningTimer,
   routes,
   speed,
+  distance,
 }) => {
   return (
     <View style={styles.container}>
@@ -22,14 +23,12 @@ const Layout = ({
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         initialRegion={position}
-        showsUserLocation={true}
-      >
+        showsUserLocation={true}>
         <Polyline
-		coordinates={routes}
-		strokeColor= {colors.secondaryColorLight} // fallback for when `strokeColors` is not supported by the map-provider
-		
-		strokeWidth={6}
-	/>
+          coordinates={routes}
+          strokeColor={colors.secondaryColorLight} // fallback for when `strokeColors` is not supported by the map-provider
+          strokeWidth={6}
+        />
       </MapView>
       <View style={styles.bottom_container}>
         <StatusCard
@@ -37,7 +36,7 @@ const Layout = ({
           titleDistance="Distance"
           titleTime="Time"
           titleNumber="Speed"
-          distance="0"
+          distance={`${Math.round(distance*1000)} m`}
           time={ConvertTimer(counter)}
           number={`${Math.floor(speed)} m/s`}
         />
