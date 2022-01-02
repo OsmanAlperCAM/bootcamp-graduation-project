@@ -5,7 +5,13 @@ import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
 
-const Layout = ({position}) => {
+const Layout = ({
+  position,
+  onPlayPausePress,
+  onStopPress,
+  counter,
+  isRunningTimer,
+}) => {
   return (
     <View style={styles.container}>
       <MapView
@@ -21,12 +27,20 @@ const Layout = ({position}) => {
           titleTime="Time"
           titleNumber="Speed"
           distance="0"
-          time="0"
+          time={counter}
           number="0"
         />
         <View style={styles.button_container}>
-          <CircleButton iconName="pause" variant="secondary" />
-          <CircleButton iconName="play-arrow" variant="secondary" />
+          <CircleButton
+            iconName="stop"
+            variant="secondary"
+            onPress={onStopPress}
+          />
+          <CircleButton
+            iconName={isRunningTimer ? 'pause' : 'play-arrow'}
+            variant="secondary"
+            onPress={onPlayPausePress}
+          />
         </View>
       </View>
       <Text>Layout</Text>

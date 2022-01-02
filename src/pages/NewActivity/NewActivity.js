@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
+import {useClock} from 'react-native-timer-hooks';
 import Layout from './Layout';
 
 const NewActivity = props => {
@@ -9,6 +10,24 @@ const NewActivity = props => {
     latitudeDelta: 0.001,
     longitudeDelta: 0.0005,
   });
+
+  const [counter, startTimer, pauseTimer, resetTimer, isRunningTimer] =
+    useClock(0, 1000, false);
+
+  const handlePlayPausePress = () => {
+    if (isRunningTimer) {
+      pauseTimer();
+      return;
+    }
+    startTimer();
+  };
+  const handleStopPress = () => {
+    pauseTimer();
+    resetTimer(0);
+  };
+  useEffect(() => {
+
+  },[counter])
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -23,6 +42,14 @@ const NewActivity = props => {
       {enableHighAccuracy: true},
     );
   }, []);
-  return <Layout position={position} />;
+  return (
+    <Layout
+      position={position}
+      onPlayPausePress={handlePlayPausePress}
+      onStopPress={handleStopPress}
+      isRunningTimer={isRunningTimer}
+      counter={counter}
+    />
+  );
 };
 export default NewActivity;
