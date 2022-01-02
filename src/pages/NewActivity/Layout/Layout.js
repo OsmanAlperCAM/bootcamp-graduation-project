@@ -4,6 +4,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
+import ConvertTimer from '../../../utils/ConvertTimer';
 
 const Layout = ({
   position,
@@ -27,7 +28,7 @@ const Layout = ({
           titleTime="Time"
           titleNumber="Speed"
           distance="0"
-          time={counter}
+          time={ConvertTimer(counter)}
           number="0"
         />
         <View style={styles.button_container}>
