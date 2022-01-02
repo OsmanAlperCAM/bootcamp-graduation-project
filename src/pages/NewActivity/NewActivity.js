@@ -4,6 +4,8 @@ import {useClock} from 'react-native-timer-hooks';
 import Layout from './Layout';
 
 const NewActivity = props => {
+  const [routes, setRoutes] = useState([]);
+  const [speed,setSpeed] = useState(0);
   const [position, setPosition] = useState({
     latitude: 0,
     longitude: 0,
@@ -13,6 +15,27 @@ const NewActivity = props => {
 
   const [counter, startTimer, pauseTimer, resetTimer, isRunningTimer] =
     useClock(0, 1000, false);
+
+  useEffect(() => {
+    if (counter % 5 == 0) {
+      Geolocation.getCurrentPosition(
+        location => {
+          console.log(location)
+          setSpeed(location.coords.speed)
+          setRoutes([
+            ...routes,
+            {
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            },
+          ]);
+        },
+        error => console.log(error),
+        {enableHighAccuracy: true},
+      );
+    }
+  }, [counter]);
+
 
   const handlePlayPausePress = () => {
     if (isRunningTimer) {
@@ -25,9 +48,7 @@ const NewActivity = props => {
     pauseTimer();
     resetTimer(0);
   };
-  useEffect(() => {
-
-  },[counter])
+  useEffect(() => {}, [counter]);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -49,6 +70,8 @@ const NewActivity = props => {
       onStopPress={handleStopPress}
       isRunningTimer={isRunningTimer}
       counter={counter}
+      routes={routes}
+      speed={speed}
     />
   );
 };

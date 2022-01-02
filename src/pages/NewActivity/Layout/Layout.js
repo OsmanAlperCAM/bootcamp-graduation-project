@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
 import ConvertTimer from '../../../utils/ConvertTimer';
+import colors from '../../../styles/colors';
 
 const Layout = ({
   position,
@@ -12,6 +13,8 @@ const Layout = ({
   onStopPress,
   counter,
   isRunningTimer,
+  routes,
+  speed,
 }) => {
   return (
     <View style={styles.container}>
@@ -20,7 +23,14 @@ const Layout = ({
         provider={PROVIDER_GOOGLE}
         initialRegion={position}
         showsUserLocation={true}
-      />
+      >
+        <Polyline
+		coordinates={routes}
+		strokeColor= {colors.secondaryColorLight} // fallback for when `strokeColors` is not supported by the map-provider
+		
+		strokeWidth={6}
+	/>
+      </MapView>
       <View style={styles.bottom_container}>
         <StatusCard
           variant="secondary"
@@ -29,7 +39,7 @@ const Layout = ({
           titleNumber="Speed"
           distance="0"
           time={ConvertTimer(counter)}
-          number="0"
+          number={`${Math.floor(speed)} m/s`}
         />
         <View style={styles.button_container}>
           <CircleButton
