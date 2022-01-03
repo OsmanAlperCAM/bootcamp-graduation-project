@@ -21,6 +21,7 @@ const Layout = ({
   speed,
   distance,
   chartData,
+  weatherData
 }) => {
   const data = {
     datasets: [
@@ -32,12 +33,12 @@ const Layout = ({
   return (
     <View style={styles.container}>
       <StatusCard
-        weather={{
-          degree: '5',
-          icon: '04n',
-          title: 'Clear',
-          humidity: '59',
-        }}
+        weather={isRunningTimer?{
+          degree: weatherData?.main.temp,
+          icon: weatherData?.weather['0'].icon,
+          title: weatherData?.weather['0'].description,
+          humidity: weatherData?.main.humidity,
+        }:null}
         variant="secondary"
         titleDistance="Distance"
         titleTime="Time"

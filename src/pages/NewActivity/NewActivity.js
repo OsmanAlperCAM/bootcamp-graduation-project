@@ -3,6 +3,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {useClock} from 'react-native-timer-hooks';
 import Layout from './Layout';
 import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
+import useFetchWeather from '../../hooks/useFetchWeather';
 
 const distanceCalculate = array => {
   let distance = 0;
@@ -30,8 +31,19 @@ const NewActivity = props => {
     longitudeDelta: 0.0005,
   });
 
+  const {
+    data: weatherData,
+    loading,
+    error,
+    fetchData,
+  } = useFetchWeather(position.latitude, position.longitude);
+
+  useEffect(() => {
+    console.log('weatherData', weatherData);
+  }, [weatherData]);
+
   const [counter, startTimer, pauseTimer, resetTimer, isRunningTimer] =
-    useClock(0, 100, false);
+    useClock(0, 1000, false);
 
   useEffect(() => {
     setDistance(distanceCalculate(routes));
@@ -78,6 +90,7 @@ const NewActivity = props => {
   }, [counter]);
 
   const handlePlayPausePress = () => {
+    fetchData()
     if (isRunningTimer) {
       pauseTimer();
       return;
@@ -114,6 +127,7 @@ const NewActivity = props => {
       speed={speed}
       distance={distance}
       chartData={chartDistance}
+      weatherData={weatherData}
     />
   );
 };
