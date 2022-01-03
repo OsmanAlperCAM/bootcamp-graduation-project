@@ -24,7 +24,7 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
         {!!hasSession && !!isNewUser?.additionalUserInfo.isNewUser == false ? (
           <Stack.Screen
             name={routes.DASHBOARD_STACK}

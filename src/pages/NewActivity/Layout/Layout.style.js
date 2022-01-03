@@ -20,6 +20,7 @@ export default StyleSheet.create({
       
   },
   chart:{
-    backgroundColor: colors.secondaryColor
-  }
+    backgroundColor: colors.secondaryColorLight
+  },
+ 
 });

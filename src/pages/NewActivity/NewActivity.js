@@ -63,12 +63,17 @@ const NewActivity = props => {
       );
     }
     if (counter % 60 == 0) {
-      const temporaryData = routes;
+      let temporaryData = routes;
       const deletedIndex = (counter - 60) / 5;
+
       if (counter != 60) {
-        temporaryData.splice(0, deletedIndex);
       }
-      setChartDistance([...chartDistance, distanceCalculate(temporaryData) * 1000]);
+      temporaryData = temporaryData.slice(deletedIndex);
+      console.log(temporaryData);
+      setChartDistance([
+        ...chartDistance,
+        Math.round(distanceCalculate(temporaryData) * 1000),
+      ]);
     }
   }, [counter]);
 

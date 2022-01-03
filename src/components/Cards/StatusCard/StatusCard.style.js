@@ -10,10 +10,12 @@ const baseStyles = StyleSheet.create({
     margin: spacing.tiny,
     backgroundColor: colors.secondaryColorLight,
     borderRadius: radius.soft,
+    justifyContent:'center'
   },
   status_container: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   title: {
     fontSize: fontSize.huge,

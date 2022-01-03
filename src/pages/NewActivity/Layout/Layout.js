@@ -7,6 +7,7 @@ import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
 import ConvertTimer from '../../../utils/ConvertTimer';
 import colors from '../../../styles/colors';
+import WeatherCard from '../../../components/Cards/WeatherCard';
 
 const deviceSize = Dimensions.get('window');
 
@@ -30,6 +31,21 @@ const Layout = ({
   };
   return (
     <View style={styles.container}>
+      <StatusCard
+        weather={{
+          degree: '5',
+          icon: '04n',
+          title: 'Clear',
+          humidity: '59',
+        }}
+        variant="secondary"
+        titleDistance="Distance"
+        titleTime="Time"
+        titleNumber="Speed"
+        distance={`${Math.round(distance * 1000)} m`}
+        time={ConvertTimer(counter)}
+        number={`${Math.floor(speed)} m/s`}
+      />
       <MapView
         style={styles.map}
         provider={PROVIDER_GOOGLE}
@@ -43,14 +59,22 @@ const Layout = ({
         />
       </MapView>
       <View style={styles.bottom_container}>
-        <StatusCard
-          variant="secondary"
-          titleDistance="Distance"
-          titleTime="Time"
-          titleNumber="Speed"
-          distance={`${Math.round(distance * 1000)} m`}
-          time={ConvertTimer(counter)}
-          number={`${Math.floor(speed)} m/s`}
+        <BarChart
+          style={styles.chart}
+          data={data}
+          width={deviceSize.width}
+          height={deviceSize.height / 4}
+          chartConfig={{
+            barPercentage: 0.3,
+            backgroundGradientFrom: colors.secondaryColorLight,
+            backgroundGradientTo: colors.secondaryColorLight,
+            decimalPlaces: 0,
+            color: () => colors.secondaryTextColor,
+            labelColor: () => colors.secondaryTextColor,
+            fillShadowGradientOpacity: 1,
+          }}
+          verticalLabelRotation={0}
+          showValuesOnTopOfBars={true}
         />
         <View style={styles.button_container}>
           <CircleButton
@@ -67,22 +91,6 @@ const Layout = ({
           />
         </View>
       </View>
-      <BarChart
-        style={styles.chart}
-        data={data}
-        width={deviceSize.width}
-        height={deviceSize.height / 4}
-        chartConfig={{
-          barPercentage: 0.3,
-          backgroundGradientFrom: colors.secondaryColor,
-          backgroundGradientTo: colors.secondaryColor,
-          decimalPlaces: 0,
-          color: () => colors.secondaryTextColor,
-          labelColor: () => colors.secondaryTextColor,
-          fillShadowGradientOpacity: 1,
-        }}
-        verticalLabelRotation={0}
-      />
     </View>
   );
 };
