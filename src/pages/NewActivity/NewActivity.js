@@ -7,8 +7,7 @@ import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
 const distanceCalculate = array => {
   let distance = 0;
   for (let i = 1; i < array.length; i++) {
-    console.log('i', i);
-    distance = HaversineAlgorithm(
+    distance += HaversineAlgorithm(
       array[i - 1].latitude,
       array[i - 1].longitude,
       array[i].latitude,
@@ -20,8 +19,10 @@ const distanceCalculate = array => {
 
 const NewActivity = props => {
   const [distance, setDistance] = useState(0);
+  const [minuteDistance, setMinuteDistance] = useState(0);
   const [routes, setRoutes] = useState([]);
   const [speed, setSpeed] = useState(0);
+  const [chartDistance, setChartDistance] = useState([]);
   const [position, setPosition] = useState({
     latitude: 0,
     longitude: 0,
@@ -30,20 +31,24 @@ const NewActivity = props => {
   });
 
   const [counter, startTimer, pauseTimer, resetTimer, isRunningTimer] =
-    useClock(0, 1000, false);
+    useClock(0, 100, false);
 
   useEffect(() => {
-    console.log('distance', distance);
-  }, [distance]);
-  useEffect(() => {
-    console.log('5 dis', distanceCalculate(routes));
-   setDistance(distance +distanceCalculate(routes))
+    setDistance(distanceCalculate(routes));
   }, [routes]);
+  useEffect(() => {
+    setMinuteDistance(minuteDistance + distanceCalculate(chartDistance));
+  }, [chartDistance]);
 
   useEffect(() => {
-    if (counter % 5 == 0 && counter !=0) {
+    if (counter % 5 == 0) {
       Geolocation.getCurrentPosition(
         location => {
+          setPosition({
+            ...position,
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+          });
           setSpeed(location.coords.speed);
           setRoutes([
             ...routes,
@@ -56,6 +61,14 @@ const NewActivity = props => {
         error => console.log(error),
         {enableHighAccuracy: true},
       );
+    }
+    if (counter % 60 == 0) {
+      const temporaryData = routes;
+      const deletedIndex = (counter - 60) / 5;
+      if (counter != 60) {
+        temporaryData.splice(0, deletedIndex);
+      }
+      setChartDistance([...chartDistance, distanceCalculate(temporaryData) * 1000]);
     }
   }, [counter]);
 
@@ -95,6 +108,7 @@ const NewActivity = props => {
       routes={routes}
       speed={speed}
       distance={distance}
+      chartData={chartDistance}
     />
   );
 };
