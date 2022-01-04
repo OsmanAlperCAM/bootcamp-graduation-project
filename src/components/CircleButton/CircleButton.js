@@ -9,10 +9,11 @@ const FloatingActionButton = ({
   iconColor = 'secondaryTextColor',
   size = 'normal',
   onPress,
+  onLongPress,
 }) => {
   const iconSize = size == 'normal' ? 30 : size == 'big' ? 60 : 30;
   return (
-    <TouchableOpacity style={styles[size].container} onPress={onPress}>
+    <TouchableOpacity style={styles[size].container} onPress={onPress} onLongPress={onLongPress}>
       <Icon name={iconName} size={iconSize} color={colors[iconColor]} />
     </TouchableOpacity>
   );

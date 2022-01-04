@@ -5,11 +5,12 @@ import database from '@react-native-firebase/database';
 import Layout from './Layout';
 import Geolocation from '@react-native-community/geolocation';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import routes from '../../Navigation/routes';
 
 const Dashboard = props => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState(null);
   const [position, setPosition] = useState({
     latitude: 0,
@@ -25,6 +26,7 @@ const Dashboard = props => {
       .ref(`${auth().currentUser.uid}`)
       .on('value', snapshot => {
         setUserData(snapshot.val());
+        dispatch({type: 'USER_DATA', payload: {userData: snapshot.val()}})
       });
     Geolocation.getCurrentPosition(
       info => {

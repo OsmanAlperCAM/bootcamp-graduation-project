@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Text, ToastAndroid, Dimensions} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import {BarChart} from 'react-native-chart-kit';
 import CircleButton from '../../../components/CircleButton';
@@ -7,21 +7,21 @@ import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
 import ConvertTimer from '../../../utils/ConvertTimer';
 import colors from '../../../styles/colors';
-import WeatherCard from '../../../components/Cards/WeatherCard';
 
 const deviceSize = Dimensions.get('window');
 
 const Layout = ({
   position,
   onPlayPausePress,
-  onStopPress,
+  onStopLongPress,
   counter,
   isRunningTimer,
   routes,
   speed,
   distance,
   chartData,
-  weatherData
+  weatherData,
+  isFinish,
 }) => {
   const data = {
     datasets: [
@@ -30,15 +30,17 @@ const Layout = ({
       },
     ],
   };
+  const handleStopPress = () => {
+    ToastAndroid.show(
+      'Long press the stop button to finish the run',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+    );
+  };
   return (
     <View style={styles.container}>
       <StatusCard
-        weather={isRunningTimer?{
-          degree: weatherData?.main.temp,
-          icon: weatherData?.weather['0'].icon,
-          title: weatherData?.weather['0'].description,
-          humidity: weatherData?.main.humidity,
-        }:{
+        weather={{
           degree: weatherData?.main.temp,
           icon: weatherData?.weather['0'].icon,
           title: weatherData?.weather['0'].description,
@@ -48,7 +50,7 @@ const Layout = ({
         titleDistance="Distance"
         titleTime="Time"
         titleNumber="Speed"
-        distance={`${Math.round(distance * 1000)} m`}
+        distance={`${distance.toFixed(2)} km`}
         time={ConvertTimer(counter)}
         number={`${Math.floor(speed)} m/s`}
       />
@@ -82,20 +84,23 @@ const Layout = ({
           verticalLabelRotation={0}
           showValuesOnTopOfBars={true}
         />
-        <View style={styles.button_container}>
-          <CircleButton
-            iconName="stop"
-            size="big"
-            variant="secondary"
-            onPress={onStopPress}
-          />
-          <CircleButton
-            iconName={isRunningTimer ? 'pause' : 'play-arrow'}
-            size="big"
-            variant="secondary"
-            onPress={onPlayPausePress}
-          />
-        </View>
+        {!isFinish ? (
+          <View style={styles.button_container}>
+            <CircleButton
+              iconName="stop"
+              size="big"
+              variant="secondary"
+              onPress={handleStopPress}
+              onLongPress={onStopLongPress}
+            />
+            <CircleButton
+              iconName={isRunningTimer ? 'pause' : 'play-arrow'}
+              size="big"
+              variant="secondary"
+              onPress={onPlayPausePress}
+            />
+          </View>
+        ) : null}
       </View>
     </View>
   );

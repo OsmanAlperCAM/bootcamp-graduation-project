@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import {useClock} from 'react-native-timer-hooks';
+import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 import Layout from './Layout';
 import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
 import useFetchWeather from '../../hooks/useFetchWeather';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const distanceCalculate = array => {
   let distance = 0;
@@ -21,14 +24,18 @@ const distanceCalculate = array => {
 
 const NewActivity = props => {
   const route = useRoute();
+  const newReference = database()
+    .ref(`${auth().currentUser.uid}/activity/history`)
+    .push();
+  const userData = useSelector(state => state.userData);
+  console.log('userData', userData);
 
   const [distance, setDistance] = useState(0);
-  const [minuteDistance, setMinuteDistance] = useState(0);
+  const [isFinish, setIsFinish] = useState(false);
   const [routes, setRoutes] = useState([]);
   const [speed, setSpeed] = useState(0);
   const [chartDistance, setChartDistance] = useState([]);
-  const [position, setPosition] = useState({...route.params.position
-  });
+  const [position, setPosition] = useState({...route.params.position});
 
   const {
     data: weatherData,
@@ -47,9 +54,6 @@ const NewActivity = props => {
   useEffect(() => {
     setDistance(distanceCalculate(routes));
   }, [routes]);
-  useEffect(() => {
-    setMinuteDistance(minuteDistance + distanceCalculate(chartDistance));
-  }, [chartDistance]);
 
   useEffect(() => {
     if (counter % 5 == 0) {
@@ -83,22 +87,38 @@ const NewActivity = props => {
       console.log(temporaryData);
       setChartDistance([
         ...chartDistance,
-        Math.round(distanceCalculate(temporaryData) * 1000),
+       distanceCalculate(temporaryData).toFixed(2),
       ]);
     }
   }, [counter]);
 
   const handlePlayPausePress = () => {
-    fetchData()
+    fetchData();
     if (isRunningTimer) {
       pauseTimer();
       return;
     }
     startTimer();
   };
-  const handleStopPress = () => {
+  const handleStopLongPress = () => {
+    newReference.set({
+      date: new Date().toISOString(),
+      time: counter,
+      distance: distance,
+      routes: routes,
+      speed: speed,
+      chartDistance: chartDistance,
+    });
+    database()
+  .ref(`${auth().currentUser.uid}/activity/total`)
+  .update({
+    distance:userData.activity.total.distance + distance,
+    time:userData.activity.total.time + counter,
+    number: userData.activity.total.number +1
+  })
+  .then(() => console.log('Data updated.'));
+    setIsFinish(true);
     pauseTimer();
-    resetTimer(0);
   };
   useEffect(() => {}, [counter]);
 
@@ -119,7 +139,7 @@ const NewActivity = props => {
     <Layout
       position={position}
       onPlayPausePress={handlePlayPausePress}
-      onStopPress={handleStopPress}
+      onStopLongPress={handleStopLongPress}
       isRunningTimer={isRunningTimer}
       counter={counter}
       routes={routes}
@@ -127,6 +147,7 @@ const NewActivity = props => {
       distance={distance}
       chartData={chartDistance}
       weatherData={weatherData}
+      isFinish={isFinish}
     />
   );
 };
