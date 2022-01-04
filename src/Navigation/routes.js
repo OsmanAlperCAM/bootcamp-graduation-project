@@ -5,4 +5,5 @@ export default {
   DASHBOARD_STACK: 'DashboardStack',
   DASHBOARD_PAGE: 'DashboardPage',
   NEW_ACTIVITY_PAGE: 'ActivityPage',
+  HISTORY_PAGE: 'HistoryPage',
 };

@@ -47,6 +47,10 @@ const Dashboard = props => {
     navigation.navigate(routes.NEW_ACTIVITY_PAGE, {position: position});
     console.log('add Press');
   };
+  const handleGoHistory = () => {
+    navigation.navigate(routes.HISTORY_PAGE);
+    console.log('history Press');
+  };
   if (userData == null) {
     return null;
   }
@@ -56,6 +60,7 @@ const Dashboard = props => {
       position={position}
       userData={userData}
       onAddPress={handleGoAdd}
+      onHistoryPress={handleGoHistory}
     />
   );
 };

@@ -87,7 +87,7 @@ const NewActivity = props => {
       console.log(temporaryData);
       setChartDistance([
         ...chartDistance,
-       distanceCalculate(temporaryData).toFixed(2),
+        distanceCalculate(temporaryData).toFixed(2),
       ]);
     }
   }, [counter]);
@@ -101,22 +101,27 @@ const NewActivity = props => {
     startTimer();
   };
   const handleStopLongPress = () => {
-    newReference.set({
-      date: new Date().toISOString(),
-      time: counter,
-      distance: distance,
-      routes: routes,
-      speed: speed,
-      chartDistance: chartDistance,
-    });
+    newReference
+      .set({
+        date: new Date().toISOString(),
+        weatherData: weatherData,
+        time: counter,
+        distance: distance,
+        routes: routes,
+        speed: speed,
+        chartDistance: chartDistance,
+      })
+      .then(() => {
+        console.log('eklendi');
+      });
     database()
-  .ref(`${auth().currentUser.uid}/activity/total`)
-  .update({
-    distance:userData.activity.total.distance + distance,
-    time:userData.activity.total.time + counter,
-    number: userData.activity.total.number +1
-  })
-  .then(() => console.log('Data updated.'));
+      .ref(`${auth().currentUser.uid}/activity/total`)
+      .update({
+        distance: userData.activity.total.distance + distance,
+        time: userData.activity.total.time + counter,
+        number: userData.activity.total.number + 1,
+      })
+      .then(() => console.log('Data updated.'));
     setIsFinish(true);
     pauseTimer();
   };
