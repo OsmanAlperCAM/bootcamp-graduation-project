@@ -4,6 +4,7 @@ import {useClock} from 'react-native-timer-hooks';
 import Layout from './Layout';
 import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
 import useFetchWeather from '../../hooks/useFetchWeather';
+import { useRoute } from '@react-navigation/native';
 
 const distanceCalculate = array => {
   let distance = 0;
@@ -19,16 +20,14 @@ const distanceCalculate = array => {
 };
 
 const NewActivity = props => {
+  const route = useRoute();
+
   const [distance, setDistance] = useState(0);
   const [minuteDistance, setMinuteDistance] = useState(0);
   const [routes, setRoutes] = useState([]);
   const [speed, setSpeed] = useState(0);
   const [chartDistance, setChartDistance] = useState([]);
-  const [position, setPosition] = useState({
-    latitude: 0,
-    longitude: 0,
-    latitudeDelta: 0.001,
-    longitudeDelta: 0.0005,
+  const [position, setPosition] = useState({...route.params.position
   });
 
   const {

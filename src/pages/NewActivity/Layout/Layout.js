@@ -38,7 +38,12 @@ const Layout = ({
           icon: weatherData?.weather['0'].icon,
           title: weatherData?.weather['0'].description,
           humidity: weatherData?.main.humidity,
-        }:null}
+        }:{
+          degree: weatherData?.main.temp,
+          icon: weatherData?.weather['0'].icon,
+          title: weatherData?.weather['0'].description,
+          humidity: weatherData?.main.humidity,
+        }}
         variant="secondary"
         titleDistance="Distance"
         titleTime="Time"

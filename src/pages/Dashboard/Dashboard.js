@@ -42,7 +42,7 @@ const Dashboard = props => {
     await auth().signOut();
   };
   const handleGoAdd = () => {
-    navigation.navigate(routes.NEW_ACTIVITY_PAGE);
+    navigation.navigate(routes.NEW_ACTIVITY_PAGE, {position: position});
     console.log('add Press');
   };
   if (userData == null) {
