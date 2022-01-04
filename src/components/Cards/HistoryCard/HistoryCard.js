@@ -5,9 +5,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import iconSize from '../../../styles/iconSize';
 import colors from '../../../styles/colors';
 
-const HistoryCard = ({date,time,distance}) => {
+const HistoryCard = ({date,time,distance,onPress}) => {
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <View style={styles.text_container}>
         <Text style={styles.date}>{date}</Text>
         <View  style={styles.inner_container}>

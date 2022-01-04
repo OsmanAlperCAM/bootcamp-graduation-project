@@ -6,4 +6,5 @@ export default {
   DASHBOARD_PAGE: 'DashboardPage',
   NEW_ACTIVITY_PAGE: 'ActivityPage',
   HISTORY_PAGE: 'HistoryPage',
+  ACTIVITY_DETAIL_PAGE: 'ActivityDetail',
 };
