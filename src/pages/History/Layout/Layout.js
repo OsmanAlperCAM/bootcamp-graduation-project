@@ -1,13 +1,23 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
+import HistoryCard from '../../../components/Cards/HistoryCard';
+import ConvertTimer from '../../../utils/ConvertTimer';
 import styles from './Layout.style';
 
-const Layout = (props) => {
+const renderActivity = ({item}) => {
+  return (
+    <HistoryCard
+      date={item.date.split('T')[0]}
+      time={`Time: ${ConvertTimer(item.time)} Hr`}
+      distance={`Distance: ${item.distance.toFixed(2)} Km`}
+    />
+  );
+};
+const Layout = ({history}) => {
   return (
     <View style={styles.container}>
-      <Text>Layout</Text>
+      <FlatList data={history} renderItem={renderActivity} />
     </View>
   );
 };
 export default Layout;
-
