@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, ToastAndroid, Dimensions} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import {BarChart} from 'react-native-chart-kit';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';
@@ -31,11 +32,10 @@ const Layout = ({
     ],
   };
   const handleStopPress = () => {
-    ToastAndroid.show(
-      'Long press the stop button to finish the run',
-      ToastAndroid.SHORT,
-      ToastAndroid.BOTTOM,
-    );
+    showMessage({
+      message: 'Long press the stop button to finish the run',
+      type: 'warning',
+    });
   };
   return (
     <View style={styles.container}>

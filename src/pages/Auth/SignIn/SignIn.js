@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useNavigation} from '@react-navigation/native';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 import auth from '@react-native-firebase/auth';
 import styles from './SignIn.style';
 import Input from '../../../components/Input';
@@ -20,9 +21,21 @@ const SignIn = props => {
   const dispatch = useDispatch();
 
   const handleLogin = async (email, password) => {
-    const response = await auth().signInWithEmailAndPassword(email, password);
-    dispatch({type: 'USER_SESSION', payload: {session: response}});
-    console.log('signIn', response);
+    try {
+      const response = await auth().signInWithEmailAndPassword(email, password);
+      dispatch({type: 'USER_SESSION', payload: {session: response}});
+      showMessage({
+        message: `Sign In Success`,
+        type: 'success',
+      });
+      console.log('signIn', response);
+    } catch (error) {
+      console.log(`${error.message.split(']')[1].trim()}`);
+      showMessage({
+        message: `${error.message.split(']')[1].trim()}`,
+        type: 'warning',
+      });
+    }
   };
   const handleGoSignUp = () => {
     navigation.navigate(routes.SIGN_UP_PAGE);

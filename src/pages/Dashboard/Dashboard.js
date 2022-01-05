@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 import Layout from './Layout';
 import Geolocation from '@react-native-community/geolocation';
 import {useNavigation} from '@react-navigation/native';
@@ -30,8 +31,10 @@ const Dashboard = props => {
         database()
           .ref(`leaderboard/${auth().currentUser.uid}`)
           .set({
-            name: `${snapshot.val().profile.name} ${snapshot.val().profile.surname}`,
-            distance: `${snapshot.val().activity.total.distance}`
+            name: `${snapshot.val().profile.name} ${
+              snapshot.val().profile.surname
+            }`,
+            distance: `${snapshot.val().activity.total.distance}`,
           })
           .then(() => console.log('Data set.'));
       });
@@ -43,7 +46,12 @@ const Dashboard = props => {
           longitude: info.coords.longitude,
         });
       },
-      error => console.log(error),
+      error => {
+        showMessage({
+          message: `A Problem Occurred Retrieving Location`,
+          type: 'danger',
+        });
+      },
       {enableHighAccuracy: true},
     );
   }, []);

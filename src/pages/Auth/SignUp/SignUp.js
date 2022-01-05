@@ -4,6 +4,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import Button from '../../../components/Button';
@@ -34,21 +35,33 @@ const SignUp = props => {
   const dispatch = useDispatch();
 
   const handleSignUp = async (email, password, name, surname) => {
-    const response = await auth().createUserWithEmailAndPassword(
-      email,
-      password,
-    );
-    dispatch({type: 'USER_SESSION', payload: {session: response}});
-    await database().ref(`${response.user.uid}/profile`).set({
-      name,
-      surname,
-    });
-    await database().ref(`${response.user.uid}/activity/total`).set({
-      distance: 0,
-      time: 0,
-      number: 0,
-    });
-    console.log('signUp', response);
+    try {
+      const response = await auth().createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+      dispatch({type: 'USER_SESSION', payload: {session: response}});
+      await database().ref(`${response.user.uid}/profile`).set({
+        name,
+        surname,
+      });
+      await database().ref(`${response.user.uid}/activity/total`).set({
+        distance: 0,
+        time: 0,
+        number: 0,
+      });
+      showMessage({
+        message: `Sign Up Success`,
+        type: 'success',
+      });
+      console.log('signUp', response);
+    } catch (error) {
+      console.log(`${error.message.split(']')[1].trim()}`);
+      showMessage({
+        message: `${error.message.split(']')[1].trim()}`,
+        type: 'danger',
+      });
+    }
   };
 
   const handleFormSubmit = values => {

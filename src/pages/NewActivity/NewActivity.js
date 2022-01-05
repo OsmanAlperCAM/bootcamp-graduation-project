@@ -3,6 +3,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {useClock} from 'react-native-timer-hooks';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 import Layout from './Layout';
 import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
 import useFetchWeather from '../../hooks/useFetchWeather';
@@ -73,7 +74,12 @@ const NewActivity = props => {
             },
           ]);
         },
-        error => console.log(error),
+        error => {
+          showMessage({
+            message: `A Problem Occurred Retrieving Location`,
+            type: 'danger',
+          });
+        },
         {enableHighAccuracy: true},
       );
     }
@@ -112,7 +118,10 @@ const NewActivity = props => {
         chartDistance: chartDistance,
       })
       .then(() => {
-        console.log('eklendi');
+        showMessage({
+          message: 'Activity Recorded',
+          type: 'success',
+        });
       });
     database()
       .ref(`${auth().currentUser.uid}/activity/total`)
