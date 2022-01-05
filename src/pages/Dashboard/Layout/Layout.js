@@ -6,7 +6,14 @@ import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import ConvertTimer from '../../../utils/ConvertTimer';
 
-const Layout = ({onLogOut, position, userData, onAddPress,onHistoryPress}) => {
+const Layout = ({
+  onLogOut,
+  position,
+  userData,
+  onAddPress,
+  onHistoryPress,
+  onLeaderboardPress,
+}) => {
   return (
     <View style={styles.container}>
       <StatusCard
@@ -23,7 +30,7 @@ const Layout = ({onLogOut, position, userData, onAddPress,onHistoryPress}) => {
         showsUserLocation={true}
       />
       <View style={styles.buttons_container}>
-        <CircleButton iconName="leaderboard" />
+        <CircleButton iconName="leaderboard" onPress={onLeaderboardPress} />
         <CircleButton iconName="add" size="big" onPress={onAddPress} />
         <CircleButton iconName="history" onPress={onHistoryPress} />
       </View>

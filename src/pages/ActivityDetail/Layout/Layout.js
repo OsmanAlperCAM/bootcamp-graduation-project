@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text,Dimensions} from 'react-native';
-import { BarChart } from 'react-native-chart-kit';
+import {View, Text, Dimensions} from 'react-native';
+import {BarChart} from 'react-native-chart-kit';
 import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import StatusCard from '../../../components/Cards/StatusCard';
 import colors from '../../../styles/colors';
@@ -50,22 +50,22 @@ const Layout = ({activity}) => {
         />
       </MapView>
       <BarChart
-          style={styles.chart}
-          data={chartData}
-          width={deviceSize.width}
-          height={deviceSize.height / 4}
-          chartConfig={{
-            barPercentage: 0.3,
-            backgroundGradientFrom: colors.secondaryColorLight,
-            backgroundGradientTo: colors.secondaryColorLight,
-            decimalPlaces: 0,
-            color: () => colors.secondaryTextColor,
-            labelColor: () => colors.secondaryTextColor,
-            fillShadowGradientOpacity: 1,
-          }}
-          verticalLabelRotation={0}
-          showValuesOnTopOfBars={true}
-        />
+        style={styles.chart}
+        data={chartData}
+        width={deviceSize.width}
+        height={deviceSize.height / 4}
+        chartConfig={{
+          barPercentage: 0.3,
+          backgroundGradientFrom: colors.secondaryColorLight,
+          backgroundGradientTo: colors.secondaryColorLight,
+          decimalPlaces: 0,
+          color: () => colors.secondaryTextColor,
+          labelColor: () => colors.secondaryTextColor,
+          fillShadowGradientOpacity: 1,
+        }}
+        verticalLabelRotation={0}
+        showValuesOnTopOfBars={true}
+      />
     </View>
   );
 };

@@ -26,7 +26,14 @@ const Dashboard = props => {
       .ref(`${auth().currentUser.uid}`)
       .on('value', snapshot => {
         setUserData(snapshot.val());
-        dispatch({type: 'USER_DATA', payload: {userData: snapshot.val()}})
+        dispatch({type: 'USER_DATA', payload: {userData: snapshot.val()}});
+        database()
+          .ref(`leaderboard/${auth().currentUser.uid}`)
+          .set({
+            name: `${snapshot.val().profile.name} ${snapshot.val().profile.surname}`,
+            distance: `${snapshot.val().activity.total.distance}`
+          })
+          .then(() => console.log('Data set.'));
       });
     Geolocation.getCurrentPosition(
       info => {
@@ -51,6 +58,10 @@ const Dashboard = props => {
     navigation.navigate(routes.HISTORY_PAGE);
     console.log('history Press');
   };
+  const handleGoLeaderboard = () => {
+    navigation.navigate(routes.LEADERBOARD_PAGE);
+    console.log('Leaderboard Press');
+  };
   if (userData == null) {
     return null;
   }
@@ -61,6 +72,7 @@ const Dashboard = props => {
       userData={userData}
       onAddPress={handleGoAdd}
       onHistoryPress={handleGoHistory}
+      onLeaderboardPress={handleGoLeaderboard}
     />
   );
 };
