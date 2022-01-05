@@ -38,6 +38,7 @@ const SignUp = props => {
       email,
       password,
     );
+    dispatch({type: 'USER_SESSION', payload: {session: response}});
     await database().ref(`${response.user.uid}/profile`).set({
       name,
       surname,
@@ -47,7 +48,6 @@ const SignUp = props => {
       time: 0,
       number: 0,
     });
-    dispatch({type: 'USER_SESSION', payload: {session: response}});
     console.log('signUp', response);
   };
 

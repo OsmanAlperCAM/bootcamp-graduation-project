@@ -1,16 +1,19 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Dashboard from '../../pages/Dashboard';
+import auth from '@react-native-firebase/auth';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import routes from '../routes';
 import NewActivity from '../../pages/NewActivity';
 import History from '../../pages/History';
 import ActivityDetail from '../../pages/ActivityDetail';
 import Leaderboard from '../../pages/Leaderboard';
 import colors from '../../styles/colors';
+import iconSize from '../../styles/iconSize';
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = () => {
+const DashboardStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -23,7 +26,19 @@ const AuthStack = () => {
         },
       }}>
       <Stack.Screen
-        options={{headerTitle: 'Dashboard'}}
+        options={{
+          headerRight: () => {
+            return (
+              <Icon
+                name="logout"
+                size={iconSize.normal}
+                color={colors.secondaryTextColor}
+                onPress={()=> auth().signOut()}
+              />
+            );
+          },
+          headerTitle: 'Dashboard',
+        }}
         name={routes.DASHBOARD_PAGE}
         component={Dashboard}
       />
@@ -50,4 +65,4 @@ const AuthStack = () => {
   );
 };
 
-export default AuthStack;
+export default DashboardStack;
