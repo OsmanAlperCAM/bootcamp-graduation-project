@@ -17,7 +17,6 @@ const Layout = ({activity}) => {
     ],
   };
 
-  console.log(activity.routes[Math.round(activity.routes.length / 2)]);
   return (
     <View style={styles.container}>
       <StatusCard

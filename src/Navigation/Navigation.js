@@ -12,16 +12,12 @@ const Stack = createNativeStackNavigator();
 const Navigation = () => {
   const [hasSession, setHasSession] = useState(null);
   const isNewUser = useSelector(state => state.session);
-  console.log('isNewUser', !!isNewUser?.additionalUserInfo.isNewUser);
 
   useEffect(() => {
     const subscribe = auth().onAuthStateChanged(setHasSession);
     return subscribe;
   }, []);
-  useEffect(() => {
-    console.log('hasSession', hasSession);
-  }, [hasSession]);
-
+  
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>

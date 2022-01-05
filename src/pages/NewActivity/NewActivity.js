@@ -29,8 +29,6 @@ const NewActivity = props => {
     .ref(`${auth().currentUser.uid}/activity/history`)
     .push();
   const userData = useSelector(state => state.userData);
-  console.log('userData', userData);
-
   const [distance, setDistance] = useState(0);
   const [isFinish, setIsFinish] = useState(false);
   const [routes, setRoutes] = useState([]);
@@ -44,10 +42,6 @@ const NewActivity = props => {
     error,
     fetchData,
   } = useFetchWeather(position.latitude, position.longitude);
-
-  useEffect(() => {
-    console.log('weatherData', weatherData);
-  }, [weatherData]);
 
   const [counter, startTimer, pauseTimer, resetTimer, isRunningTimer] =
     useClock(0, 1000, false);
@@ -90,7 +84,6 @@ const NewActivity = props => {
       if (counter != 60) {
       }
       temporaryData = temporaryData.slice(deletedIndex);
-      console.log(temporaryData);
       setChartDistance([
         ...chartDistance,
         distanceCalculate(temporaryData).toFixed(2),
@@ -107,6 +100,15 @@ const NewActivity = props => {
     startTimer();
   };
   const handleStopLongPress = () => {
+    if (distance < 0.001) {
+      showMessage({
+        message: `Could not save because the run was not detected`,
+        type: 'warning',
+      });
+      pauseTimer();
+      resetTimer(0);
+      return;
+    }
     newReference
       .set({
         date: new Date().toISOString(),
@@ -129,8 +131,7 @@ const NewActivity = props => {
         distance: userData.activity.total.distance + distance,
         time: userData.activity.total.time + counter,
         number: userData.activity.total.number + 1,
-      })
-      .then(() => console.log('Data updated.'));
+      });
     setIsFinish(true);
     pauseTimer();
   };
@@ -145,7 +146,12 @@ const NewActivity = props => {
           longitude: info.coords.longitude,
         });
       },
-      error => console.log(error),
+      error => {
+        showMessage({
+          message: `A Problem Occurred Retrieving Location`,
+          type: 'danger',
+        });
+      },
       {enableHighAccuracy: true},
     );
   }, []);

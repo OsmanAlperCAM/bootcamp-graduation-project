@@ -28,9 +28,7 @@ const SignIn = props => {
         message: `Sign In Success`,
         type: 'success',
       });
-      console.log('signIn', response);
     } catch (error) {
-      console.log(`${error.message.split(']')[1].trim()}`);
       showMessage({
         message: `${error.message.split(']')[1].trim()}`,
         type: 'warning',

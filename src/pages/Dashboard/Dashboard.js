@@ -20,9 +20,6 @@ const Dashboard = props => {
     longitudeDelta: 0.0005,
   });
   useEffect(() => {
-    console.log('userdata', userData);
-  }, [userData]);
-  useEffect(() => {
     database()
       .ref(`${auth().currentUser.uid}`)
       .on('value', snapshot => {
@@ -35,8 +32,7 @@ const Dashboard = props => {
               snapshot.val().profile.surname
             }`,
             distance: `${snapshot.val().activity.total.distance}`,
-          })
-          .then(() => console.log('Data set.'));
+          });
       });
     Geolocation.getCurrentPosition(
       info => {
@@ -60,15 +56,12 @@ const Dashboard = props => {
   };
   const handleGoAdd = () => {
     navigation.navigate(routes.NEW_ACTIVITY_PAGE, {position: position});
-    console.log('add Press');
   };
   const handleGoHistory = () => {
     navigation.navigate(routes.HISTORY_PAGE);
-    console.log('history Press');
   };
   const handleGoLeaderboard = () => {
     navigation.navigate(routes.LEADERBOARD_PAGE);
-    console.log('Leaderboard Press');
   };
   if (userData == null) {
     return null;

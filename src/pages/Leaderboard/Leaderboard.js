@@ -12,7 +12,6 @@ const Leaderboard = props => {
       .ref('/leaderboard')
       .once('value')
       .then(snapshot => {
-        console.log('User data: ', snapshot.val());
         setLeaderList(ParseFirebaseData(snapshot.val()).sort((a,b)=> (b.distance - a.distance)));
       });
   }, []);

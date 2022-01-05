@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-// https://api.openweathermap.org/data/2.5/weather?lat=0&lon=0&units=metric&appid=93e6af3d34168a51daaa149bd4bbcbd4
-
 const useFetchWeather = (latitude,longitude) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);

@@ -89,14 +89,12 @@ const Layout = ({
             <CircleButton
               iconName="stop"
               size="big"
-              variant="secondary"
               onPress={handleStopPress}
               onLongPress={onStopLongPress}
             />
             <CircleButton
               iconName={isRunningTimer ? 'pause' : 'play-arrow'}
               size="big"
-              variant="secondary"
               onPress={onPlayPausePress}
             />
           </View>

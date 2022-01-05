@@ -12,6 +12,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    backgroundColor:colors.secondaryColorLight
   },
   bottom_container: {
     flex: 1,

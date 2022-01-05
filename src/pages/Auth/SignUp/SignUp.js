@@ -54,9 +54,7 @@ const SignUp = props => {
         message: `Sign Up Success`,
         type: 'success',
       });
-      console.log('signUp', response);
     } catch (error) {
-      console.log(`${error.message.split(']')[1].trim()}`);
       showMessage({
         message: `${error.message.split(']')[1].trim()}`,
         type: 'danger',
