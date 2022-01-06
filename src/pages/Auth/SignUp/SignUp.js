@@ -14,11 +14,11 @@ import styles from './SignUp.style';
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Too Short!')
-    .max(10, 'Too Long!')
+    .max(20, 'Too Long!')
     .required('Required'),
   surname: Yup.string()
     .min(2, 'Too Short!')
-    .max(10, 'Too Long!')
+    .max(20, 'Too Long!')
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password: Yup.string()
@@ -90,6 +90,7 @@ const SignUp = props => {
                 onBlur={handleBlur('name')}
                 onChangeText={handleChange('name')}
                 value={values.name}
+                autoCapitalize='none'
               />
             </View>
             <View style={styles.input_container}>
@@ -100,6 +101,7 @@ const SignUp = props => {
                 onBlur={handleBlur('surname')}
                 onChangeText={handleChange('surname')}
                 value={values.surname}
+                autoCapitalize='none'
               />
             </View>
           </View>
@@ -112,6 +114,7 @@ const SignUp = props => {
             onBlur={handleBlur('email')}
             onChangeText={handleChange('email')}
             value={values.email}
+            autoCapitalize='none'
           />
           <Input
             placeholder="Password"
@@ -122,6 +125,7 @@ const SignUp = props => {
             onChangeText={handleChange('password')}
             value={values.password}
             secureTextEntry
+            autoCapitalize='none'
           />
           <Input
             placeholder="Confirm Password"
@@ -132,6 +136,7 @@ const SignUp = props => {
             onChangeText={handleChange('confirmPassword')}
             value={values.confirmPassword}
             secureTextEntry
+            autoCapitalize='none'
           />
           <Button title="Sign Up" onPress={handleSubmit} />
         </View>

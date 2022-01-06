@@ -61,6 +61,7 @@ const SignIn = props => {
             onBlur={handleBlur('email')}
             value={values.email}
             onChangeText={handleChange('email')}
+            autoCapitalize='none'
           />
           <Input
             placeholder="Password"
@@ -71,6 +72,7 @@ const SignIn = props => {
             value={values.password}
             onChangeText={handleChange('password')}
             secureTextEntry
+            autoCapitalize='none'
           />
           <Button title="Sign In" onPress={handleSubmit} />
           <Button title="Sign Up" variant="outline" onPress={handleGoSignUp} />
