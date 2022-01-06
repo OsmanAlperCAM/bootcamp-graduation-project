@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 import Layout from './Layout';
 import Geolocation from '@react-native-community/geolocation';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import routes from '../../Navigation/routes';
 import Loading from '../../components/Loading';
 

@@ -4,7 +4,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 import database from '@react-native-firebase/database';
 import auth from '@react-native-firebase/auth';
 import Button from '../../../components/Button';
@@ -36,6 +36,7 @@ const SignUp = props => {
 
   const handleSignUp = async (email, password, name, surname) => {
     try {
+      dispatch({type: 'USER_SESSION', payload: {session: true}});
       const response = await auth().createUserWithEmailAndPassword(
         email,
         password,

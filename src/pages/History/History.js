@@ -1,6 +1,5 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {View, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import routes from '../../Navigation/routes';
 import ParseFirebaseData from '../../utils/ParseFirebaseData';

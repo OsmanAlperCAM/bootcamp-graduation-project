@@ -4,26 +4,13 @@ import {Alert, Share} from 'react-native';
 import {useClock} from 'react-native-timer-hooks';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 import Layout from './Layout';
-import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
+import DistanceCalculate from '../../utils/DistanceCalculate';
 import useFetchWeather from '../../hooks/useFetchWeather';
 import {useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import ConvertTimer from '../../utils/ConvertTimer';
-
-const distanceCalculate = array => {
-  let distance = 0;
-  for (let i = 1; i < array.length; i++) {
-    distance += HaversineAlgorithm(
-      array[i - 1].latitude,
-      array[i - 1].longitude,
-      array[i].latitude,
-      array[i].longitude,
-    );
-  }
-  return distance;
-};
 
 const NewActivity = props => {
   const route = useRoute();
@@ -38,18 +25,16 @@ const NewActivity = props => {
   const [chartDistance, setChartDistance] = useState([]);
   const [position, setPosition] = useState({...route.params.position});
 
-  const {
-    data: weatherData,
-    loading,
-    error,
-    fetchData,
-  } = useFetchWeather(position.latitude, position.longitude);
+  const {data: weatherData, fetchData} = useFetchWeather(
+    position.latitude,
+    position.longitude,
+  );
 
   const [counter, startTimer, pauseTimer, resetTimer, isRunningTimer] =
     useClock(0, 1000, false);
 
   useEffect(() => {
-    setDistance(distanceCalculate(routes));
+    setDistance(DistanceCalculate(routes));
   }, [routes]);
 
   useEffect(() => {
@@ -88,7 +73,7 @@ const NewActivity = props => {
       temporaryData = temporaryData.slice(deletedIndex);
       setChartDistance([
         ...chartDistance,
-        distanceCalculate(temporaryData).toFixed(2),
+        DistanceCalculate(temporaryData).toFixed(2),
       ]);
     }
   }, [counter]);
@@ -107,7 +92,7 @@ const NewActivity = props => {
       'Do you want to share the activity?',
       [
         {
-          text: 'Cancel',
+          text: 'Ok',
           onPress: null,
           style: 'cancel',
         },

@@ -26,6 +26,7 @@ const LeaderboardCard = ({name, distance, index}) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.number}>{index+1}</Text>
       {!!iconColor && <Icon name="trophy-variant" size={iconSize.large} color={iconColor} />}
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.distance}>{Number(distance).toFixed(2)} Km</Text>

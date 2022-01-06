@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions} from 'react-native';
+import {View, Dimensions} from 'react-native';
 import {BarChart} from 'react-native-chart-kit';
 import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import StatusCard from '../../../components/Cards/StatusCard';

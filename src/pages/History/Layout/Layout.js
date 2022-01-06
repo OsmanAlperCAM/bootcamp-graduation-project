@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import HistoryCard from '../../../components/Cards/HistoryCard';
 import ConvertTimer from '../../../utils/ConvertTimer';
 import styles from './Layout.style';

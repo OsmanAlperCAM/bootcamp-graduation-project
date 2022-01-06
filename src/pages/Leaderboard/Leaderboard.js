@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
 import database from '@react-native-firebase/database';
 import ParseFirebaseData from '../../utils/ParseFirebaseData';
 import Layout from './Layout/';
@@ -14,7 +13,7 @@ const Leaderboard = props => {
       .ref('/leaderboard')
       .once('value')
       .then(snapshot => {
-        setLeaderList(ParseFirebaseData(snapshot.val()).sort((a,b)=> (b.distance - a.distance)));
+        setLeaderList(ParseFirebaseData(snapshot.val()).sort((a,b)=> (b.distance - a.distance)).slice(0,50));
         setLoading(false)
       });
   }, []);

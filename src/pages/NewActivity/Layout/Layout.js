@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, ToastAndroid, Dimensions} from 'react-native';
+import {View,Dimensions} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps';
 import {BarChart} from 'react-native-chart-kit';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 import CircleButton from '../../../components/CircleButton';
 import StatusCard from '../../../components/Cards/StatusCard';
 import styles from './Layout.style';

@@ -26,4 +26,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: colors.secondaryTextColor,
   },
+  number: {
+    margin: spacing.tiny,
+    fontSize: fontSize.large,
+    fontWeight: 'bold',
+    color: colors.secondaryTextColor,
+  },
 });

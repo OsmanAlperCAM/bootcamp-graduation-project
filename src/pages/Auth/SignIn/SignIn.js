@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useNavigation} from '@react-navigation/native';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 import auth from '@react-native-firebase/auth';
 import styles from './SignIn.style';
 import Input from '../../../components/Input';
