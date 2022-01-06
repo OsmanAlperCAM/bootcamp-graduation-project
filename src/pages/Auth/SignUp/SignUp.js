@@ -36,7 +36,10 @@ const SignUp = props => {
 
   const handleSignUp = async (email, password, name, surname) => {
     try {
-      dispatch({type: 'USER_SESSION', payload: {session: true}});
+      dispatch({
+        type: 'USER_SESSION',
+        payload: {session: {additionalUserInfo: {isNewUser: true}}},
+      });
       const response = await auth().createUserWithEmailAndPassword(
         email,
         password,
@@ -112,7 +115,7 @@ const SignUp = props => {
             onBlur={handleBlur('email')}
             onChangeText={handleChange('email')}
             value={values.email}
-            autoCapitalize='none'
+            autoCapitalize="none"
           />
           <Input
             placeholder="Password"
@@ -123,7 +126,7 @@ const SignUp = props => {
             onChangeText={handleChange('password')}
             value={values.password}
             secureTextEntry
-            autoCapitalize='none'
+            autoCapitalize="none"
           />
           <Input
             placeholder="Confirm Password"
@@ -134,7 +137,7 @@ const SignUp = props => {
             onChangeText={handleChange('confirmPassword')}
             value={values.confirmPassword}
             secureTextEntry
-            autoCapitalize='none'
+            autoCapitalize="none"
           />
           <Button title="Sign Up" onPress={handleSubmit} />
         </View>

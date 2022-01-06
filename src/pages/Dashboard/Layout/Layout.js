@@ -27,6 +27,7 @@ const Layout = ({
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         initialRegion={position}
+        region={position}
         showsUserLocation={true}
       />
       <View style={styles.buttons_container}>
