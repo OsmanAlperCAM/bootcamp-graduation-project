@@ -9,7 +9,7 @@ const Layout = ({history,onActivityPress}) => {
     return (
       <HistoryCard
         onPress={()=>onActivityPress(item)}
-        date={item.date.split('T')[0]}
+        date={`${item.date.split('T')[0]} ${item.date.split('T')[1].split('.')[0]}`}
         time={`Time: ${ConvertTimer(item.time)} Hr`}
         distance={`Distance: ${item.distance.toFixed(2)} Km`}
       />

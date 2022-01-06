@@ -90,7 +90,6 @@ const SignUp = props => {
                 onBlur={handleBlur('name')}
                 onChangeText={handleChange('name')}
                 value={values.name}
-                autoCapitalize='none'
               />
             </View>
             <View style={styles.input_container}>
@@ -101,7 +100,6 @@ const SignUp = props => {
                 onBlur={handleBlur('surname')}
                 onChangeText={handleChange('surname')}
                 value={values.surname}
-                autoCapitalize='none'
               />
             </View>
           </View>
