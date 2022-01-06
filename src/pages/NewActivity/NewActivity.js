@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
+import {Alert, Share} from 'react-native';
 import {useClock} from 'react-native-timer-hooks';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
@@ -9,6 +10,7 @@ import HaversineAlgorithm from '../../utils/HaversineAlgorithm';
 import useFetchWeather from '../../hooks/useFetchWeather';
 import {useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import ConvertTimer from '../../utils/ConvertTimer';
 
 const distanceCalculate = array => {
   let distance = 0;
@@ -99,6 +101,30 @@ const NewActivity = props => {
     }
     startTimer();
   };
+  const handleShowAlert = () => {
+    return Alert.alert(
+      'Activity Completed',
+      'Do you want to share the activity?',
+      [
+        {
+          text: 'Cancel',
+          onPress: null,
+          style: 'cancel',
+        },
+        {text: 'Share', onPress: handleShare},
+      ],
+    );
+  };
+
+  const handleShare = async content => {
+    await Share.share({
+      title: "Today's run",
+      message: `Today's run || Time: ${ConvertTimer(
+        counter,
+      )} || Distance= ${distance.toFixed(2)} Km`,
+    });
+  };
+
   const handleStopLongPress = () => {
     if (distance < 0.001) {
       showMessage({
@@ -134,6 +160,7 @@ const NewActivity = props => {
       });
     setIsFinish(true);
     pauseTimer();
+    handleShowAlert();
   };
   useEffect(() => {}, [counter]);
 
