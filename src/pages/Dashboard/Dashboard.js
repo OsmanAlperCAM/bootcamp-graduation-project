@@ -8,6 +8,7 @@ import Geolocation from '@react-native-community/geolocation';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import routes from '../../Navigation/routes';
+import Loading from '../../components/Loading';
 
 const Dashboard = props => {
   const navigation = useNavigation();
@@ -64,7 +65,7 @@ const Dashboard = props => {
     navigation.navigate(routes.LEADERBOARD_PAGE);
   };
   if (userData == null) {
-    return null;
+    return <Loading/>;
   }
   return (
     <Layout
