@@ -7,7 +7,7 @@
 - [Install React Native](https://reactnative.dev/docs/environment-setup)
 
 ```
-git clone https://github.com/patika-128-react-native-bootcamp/OsmanAlperCAM.git
+git clone https://github.com/OsmanAlperCAM/bootcamp-graduation-project.git
 ```
 
 - npm install or yarn install for installing all the dependencies
